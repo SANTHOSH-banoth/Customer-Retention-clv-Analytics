@@ -1,0 +1,10 @@
+data/raw/*.xlsx
+data/raw/*.zip
+data/raw/*.csv.gz
+data/raw/*.pkl
+data/processed/*.pkl
+data/processed/*.parquet
+data/processed/*.csv
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
