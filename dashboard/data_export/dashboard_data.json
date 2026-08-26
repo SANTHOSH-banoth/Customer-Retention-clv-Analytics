@@ -1,0 +1,171 @@
+{
+  "overview": {
+    "total_customers": 5868,
+    "total_revenue": 16590567.52,
+    "total_orders": 44370,
+    "aov": 451.16,
+    "pct_active_90d": 49.2
+  },
+  "segments": {
+    "labels": [
+      "Champions",
+      "Loyal Customers",
+      "Potential Loyalists",
+      "New Customers",
+      "Need Attention",
+      "At Risk",
+      "About To Sleep",
+      "Hibernating"
+    ],
+    "counts": [
+      1266,
+      847,
+      714,
+      239,
+      304,
+      441,
+      1109,
+      948
+    ],
+    "revenue": [
+      11530705.65,
+      2614980.23,
+      687967.4,
+      79095.76,
+      338232.61,
+      458113.44,
+      522605.79,
+      358866.63
+    ]
+  },
+  "cohort_milestones": {
+    "M1": {
+      "mean": 21.0,
+      "n_cohorts": 24
+    },
+    "M3": {
+      "mean": 21.6,
+      "n_cohorts": 22
+    },
+    "M6": {
+      "mean": 17.9,
+      "n_cohorts": 19
+    },
+    "M12": {
+      "mean": 18.2,
+      "n_cohorts": 13
+    }
+  },
+  "country": [
+    {
+      "country_group": "France",
+      "customers": 94,
+      "revenue": 301809.3,
+      "avg_recency": 121.6
+    },
+    {
+      "country_group": "Germany",
+      "customers": 106,
+      "revenue": 379212.7,
+      "avg_recency": 131.7
+    },
+    {
+      "country_group": "Other (small sample, <30 customers)",
+      "customers": 285,
+      "revenue": 1956938.2,
+      "avg_recency": 214.5
+    },
+    {
+      "country_group": "Spain",
+      "customers": 35,
+      "revenue": 81783.3,
+      "avg_recency": 164.4
+    },
+    {
+      "country_group": "United Kingdom",
+      "customers": 5348,
+      "revenue": 13870824.0,
+      "avg_recency": 203.5
+    }
+  ],
+  "revenue_at_risk": {
+    "total_historical_revenue": 16590567.516999999,
+    "at_risk_population_size": 2802.0,
+    "at_risk_population_pct": 47.75051124744376,
+    "at_risk_historical_revenue": 1677818.475,
+    "at_risk_historical_pct_of_total": 10.113086687847028,
+    "at_risk_clv_coverage_n": 2287.0,
+    "at_risk_clv_coverage_pct": 81.62027123483226,
+    "total_predicted_future_value": 1414891.404920757,
+    "revenue_at_risk_raw": 255295.43578734712,
+    "revenue_at_risk_pct_of_predicted_raw": 18.04346502491089,
+    "winsorize_cap_99pct": 2985.4745327281594,
+    "revenue_at_risk_winsorized": 234622.29517608322,
+    "total_predicted_winsorized": 1278776.0896938655,
+    "revenue_at_risk_pct_of_predicted_winsorized": 18.347410236005505
+  },
+  "retention_simulation": [
+    {
+      "strategy": "A_target_everyone",
+      "customers_targeted": 5868,
+      "campaign_cost_gbp": 29340.0,
+      "assumed_win_back_rate": 0.2,
+      "expected_recovered_value_gbp": 46924.45903521665,
+      "expected_net_value_gbp": 17584.45903521665,
+      "roi": 0.5993339821137236,
+      "win_back_rate_label": "20%"
+    },
+    {
+      "strategy": "B_target_all_at_risk",
+      "customers_targeted": 2802,
+      "campaign_cost_gbp": 14010.0,
+      "assumed_win_back_rate": 0.2,
+      "expected_recovered_value_gbp": 46924.45903521665,
+      "expected_net_value_gbp": 32914.45903521665,
+      "roi": 2.3493546777456564,
+      "win_back_rate_label": "20%"
+    },
+    {
+      "strategy": "C_target_high_value_at_risk",
+      "customers_targeted": 572,
+      "campaign_cost_gbp": 2860.0,
+      "assumed_win_back_rate": 0.2,
+      "expected_recovered_value_gbp": 36274.298002138596,
+      "expected_net_value_gbp": 33414.298002138596,
+      "roi": 11.68332097976874,
+      "win_back_rate_label": "20%"
+    }
+  ],
+  "rfm_stats": {
+    "recency": {
+      "count": 5868.0,
+      "mean": 201.2,
+      "std": 208.7,
+      "min": 1.0,
+      "25%": 26.0,
+      "50%": 96.0,
+      "75%": 380.0,
+      "max": 739.0
+    },
+    "frequency": {
+      "count": 5868.0,
+      "mean": 6.3,
+      "std": 12.9,
+      "min": 1.0,
+      "25%": 1.0,
+      "50%": 3.0,
+      "75%": 7.0,
+      "max": 392.0
+    },
+    "monetary": {
+      "count": 5868.0,
+      "mean": 2827.3,
+      "std": 14024.0,
+      "min": -10953.5,
+      "25%": 331.8,
+      "50%": 853.0,
+      "75%": 2207.0,
+      "max": 599443.6
+    }
+  }
+}
