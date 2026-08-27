@@ -59,6 +59,32 @@ def export():
         "monetary": merged["monetary"].describe().round(1).to_dict(),
     }
 
+    # Per-segment RFM stats -- powers the Page 3 filter drill-down (Phase 25 fix)
+    rfm_stats_by_segment = {}
+    for seg in SEGMENT_ORDER:
+        sub = merged[merged["segment"] == seg]
+        rfm_stats_by_segment[seg] = {
+            "recency": sub["recency_days"].describe().round(1).to_dict(),
+            "frequency": sub["frequency"].describe().round(1).to_dict(),
+            "monetary": sub["monetary"].describe().round(1).to_dict(),
+        }
+
+    # Top-10 at-risk customers by predicted CLV -- powers the Page 4
+    # drill-down table (Phase 25 fix). Winsorized at the same 99th
+    # percentile as Phase 19/20, AND additionally excludes customers with
+    # negative historical monetary -- a known data-artifact pattern
+    # (Phase 6/18/22, e.g. Customer 12346) that would otherwise put an
+    # unreliable prediction at the top of an actionable target list.
+    cap = merged.loc[merged["predicted_clv_final"].notna(), "predicted_clv_final"].quantile(0.99)
+    merged["clv_winsorized"] = merged["predicted_clv_final"].clip(upper=cap)
+    at_risk_segs = ["At Risk", "About To Sleep", "Hibernating", "Need Attention"]
+    at_risk_targetable = merged[
+        merged["segment"].isin(at_risk_segs) & merged["clv_winsorized"].notna() & (merged["monetary"] > 0)
+    ]
+    top_targets = at_risk_targetable.nlargest(10, "clv_winsorized")[
+        ["customer_id", "segment", "recency_days", "frequency", "monetary", "clv_winsorized"]
+    ].round(2)
+
     output = {
         "overview": overview,
         "segments": segments,
@@ -67,6 +93,8 @@ def export():
         "revenue_at_risk": {k: (float(v) if isinstance(v, (int, float)) else v) for k, v in rar.to_dict().items()},
         "retention_simulation": sim[sim["win_back_rate_label"] == "20%"].reset_index().to_dict(orient="records"),
         "rfm_stats": rfm_stats,
+        "rfm_stats_by_segment": rfm_stats_by_segment,
+        "top_at_risk_targets": top_targets.to_dict(orient="records"),
     }
 
     OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)

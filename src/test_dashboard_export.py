@@ -46,3 +46,38 @@ def test_dashboard_html_file_exists_and_is_self_contained():
     assert "cdnjs.cloudflare.com" not in html
     assert "fonts.googleapis.com" not in html
     assert "Chart.Chart" in html or "class Chart" in html or "var Chart" in html or "Chart=" in html.replace(" ", "")
+
+
+def test_top_at_risk_targets_excludes_known_artifact_customer():
+    """Phase 25 finding: an unwinsorized top-CLV list would put Customer
+    12346 (Phase 18/22's known data artifact -- a sold-then-cancelled
+    74,215-unit order) at #1. This test locks in the fix: the drill-down
+    list excludes negative-historical-monetary customers, so 12346 never
+    appears in an actionable target list."""
+    output = export()
+    target_ids = [c["customer_id"] for c in output["top_at_risk_targets"]]
+    assert 12346 not in target_ids
+
+
+def test_top_at_risk_targets_all_have_positive_historical_value():
+    output = export()
+    merged = pd.read_pickle("data/processed/rfm_clv_combined.pkl")
+    target_ids = [c["customer_id"] for c in output["top_at_risk_targets"]]
+    hist = merged[merged["customer_id"].isin(target_ids)]
+    assert (hist["monetary"] > 0).all()
+
+
+def test_rfm_stats_by_segment_covers_all_segments():
+    output = export()
+    from segment import assign_segment  # noqa: ensures segment module importable
+    expected_segments = {
+        "Champions", "Loyal Customers", "Potential Loyalists", "New Customers",
+        "Need Attention", "At Risk", "About To Sleep", "Hibernating",
+    }
+    assert set(output["rfm_stats_by_segment"].keys()) == expected_segments
+
+
+def test_rfm_stats_by_segment_counts_match_phase7_populations():
+    output = export()
+    at_risk_count = output["rfm_stats_by_segment"]["At Risk"]["recency"]["count"]
+    assert int(at_risk_count) == 441
