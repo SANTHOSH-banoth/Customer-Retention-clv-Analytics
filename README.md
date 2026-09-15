@@ -28,7 +28,7 @@ Python · Pandas · NumPy · scikit-learn · pytest · HTML/CSS/JS (dashboard)
 src/        28 phase scripts + 21 test files
 data/       raw and processed datasets (raw source data excluded from repo — see below)
 reports/    per-phase Markdown reports and figures
-dashboard/  self-contained interactive HTML dashboard
+docs/       self-contained interactive HTML dashboard (served via GitHub Pages)
 ```
 
 ## Running it locally
@@ -45,8 +45,10 @@ dashboard/  self-contained interactive HTML dashboard
    ```
    python3 -m pytest src/ -q
    ```
-4. Open `dashboard/index.html` in a browser to view the dashboard
+4. Open `docs/index.html` in a browser, or visit the live dashboard link above
 
 ## Dashboard
 
-Open `dashboard/index.html` directly in a browser, or [view it live](#) *(add a GitHub Pages link here once enabled)*.
+**Live dashboard:** https://santhosh-banoth.github.io/Customer-Retention-clv-Analytics/
+
+Or open `docs/index.html` directly in a browser.
